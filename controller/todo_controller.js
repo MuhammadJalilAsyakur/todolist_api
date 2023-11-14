@@ -1,9 +1,10 @@
 const Todo = require('../models/todo');
+const User = require('../models/user');
 
 module.exports = {
     getAllTodo: async (req, res) => {
         const user = req.user;
-        const data = await Todo.find({ userID: user.id }).populate('userID', 'name');
+        const data = await Todo.find({ userID: user.id }).populate('userID', ('name'));
 
         res.json(
             {
@@ -16,14 +17,18 @@ module.exports = {
     getTodoById: async (req, res) => {
         const { id } = req.params;
 
-        const data = await Todo.findById(id);
+        const data = await Todo.find({ userID: id }).populate('userID', 'name');
 
-        res.json(
-            {
-                message: "success getting data by id",
-                data: data
-            }
-        );
+        if (!data) {
+            return res.status(404).json({
+                message: "No todo found with this id",
+            });
+        }
+
+        res.json({
+            message: "success getting data by id",
+            data: data
+        });
 
     },
 

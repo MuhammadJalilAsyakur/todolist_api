@@ -29,7 +29,7 @@ module.exports = {
     getUserTodos: async (req, res) => {
         const { id } = req.params;
 
-        const data = await Todo.find({ userID: id }).populate('userID', 'name');
+        const data = await Todo.find({ userID: id }).populate('userID', ('name'));
 
         res.json(
             {
@@ -54,14 +54,17 @@ module.exports = {
     deleteUser: async (req, res) => {
         const { id } = req.params;
 
-        const data = await User.findByIdAndRemove(id);
+        const data = await User.findByIdAndDelete(id);
 
         res.json(
             {
-                message: "success getting data by id",
+                message: "success deleting data by id",
                 data: data
             }
         );
     },
 
+    updateUser: async (req, res) => {
+
+    }
 }

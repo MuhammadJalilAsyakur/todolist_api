@@ -14,7 +14,7 @@ router.get("/", getAllUser);
 router.get("/:id/todo", verifyToken, getUserTodos);
 router.get("/:id", verifyToken, getUserById);
 router.post("/", createUser);
-router.delete("/", deleteUser);
+router.delete("/:id", deleteUser);
 
 
 module.exports = router;
