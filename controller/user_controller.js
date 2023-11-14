@@ -65,6 +65,21 @@ module.exports = {
     },
 
     updateUser: async (req, res) => {
+        const { id } = req.params.id;
+        const updateData = req.body;
 
-    }
+        const data = await User.findOneAndReplace(id, updateData, { new: true })
+
+
+        if (!data) {
+            return res.status(404).json({
+                message: "No todo found with this id",
+            });
+        }
+
+        res.json({
+            message: "success updating data",
+            data: data
+        });
+    },
 }

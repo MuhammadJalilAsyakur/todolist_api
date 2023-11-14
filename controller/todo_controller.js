@@ -47,6 +47,7 @@ module.exports = {
     deleteTodo: async (req, res) => {
         const { id } = req.params;
 
+
         const data = await Todo.findByIdAndRemove(id);
 
         res.json(
@@ -55,6 +56,25 @@ module.exports = {
                 data: data
             }
         );
+    },
+
+    updateTodoById: async (req, res) => {
+        const { id } = req.params.id;
+        const updateData = req.body;
+
+        const data = await Todo.findOneAndReplace(id, updateData, { new: true })
+
+
+        if (!data) {
+            return res.status(404).json({
+                message: "No todo found with this id",
+            });
+        }
+
+        res.json({
+            message: "success updating data",
+            data: data
+        });
     },
 
 }
