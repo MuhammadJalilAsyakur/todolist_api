@@ -12,11 +12,11 @@ const {
 const verifyToken = require("../middleware/auth");
 
 router.get("/", getAllUser);
-router.get("/:id/todo", verifyToken, getUserTodos);
+router.get("/todo/:id", verifyToken, getUserTodos);
 router.get("/:id", verifyToken, getUserById);
 router.post("/", createUser);
 router.delete("/:id", deleteUser);
-router.post("/:id/update", verifyToken, updateUser);
+router.post("/update/:id", verifyToken, updateUser);
 
 
 module.exports = router;
