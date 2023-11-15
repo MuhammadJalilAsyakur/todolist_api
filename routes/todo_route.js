@@ -14,6 +14,6 @@ router.get("/", verifyToken, getAllTodo);
 router.post("/", createTodo);
 router.get("/:id", verifyToken, getTodoById);
 router.delete("/", deleteTodo);
-router.post("/:id/update", verifyToken, updateTodoById);
+router.post("/update/:id", verifyToken, updateTodoById);
 
 module.exports = router;
