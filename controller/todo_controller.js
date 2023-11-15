@@ -3,8 +3,7 @@ const User = require('../models/user');
 
 module.exports = {
     getAllTodo: async (req, res) => {
-        const user = req.user;
-        const data = await Todo.find({ userID: user.id }).populate('userID', ('name'));
+        const data = await Todo.find().populate('userID', ('name'));
 
         res.json(
             {
@@ -44,7 +43,7 @@ module.exports = {
         );
     },
 
-    deleteTodo: async (req, res) => {
+    deleteTodoById: async (req, res) => {
         const { id } = req.params;
 
 
@@ -52,12 +51,11 @@ module.exports = {
 
         res.json(
             {
-                message: "success getting data by id",
+                message: "success deleting data by id",
                 data: data
             }
         );
     },
-
     updateTodoById: async (req, res) => {
         const { id } = req.params.id;
         const updateData = req.body;

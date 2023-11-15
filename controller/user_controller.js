@@ -1,9 +1,11 @@
 const Todo = require('../models/todo');
 const User = require('../models/user');
+const bcrypt = require('bcrypt');
 
 module.exports = {
     getAllUser: async (req, res) => {
         const users = await User.find();
+
         res.json(
             {
                 message: "success getting all data",
