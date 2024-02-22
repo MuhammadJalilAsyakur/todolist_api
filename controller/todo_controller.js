@@ -1,9 +1,9 @@
 const Todo = require('../models/todo');
-const User = require('../models/user');
 
 module.exports = {
     getAllTodo: async (req, res) => {
-        const data = await Todo.find().populate('userID', ('name'));
+        const user = req.user;
+        const data = await Todo.find({ userID: user.id }).populate('userID', 'name');
 
         res.json(
             {
@@ -16,18 +16,14 @@ module.exports = {
     getTodoById: async (req, res) => {
         const { id } = req.params;
 
-        const data = await Todo.find({ userID: id }).populate('userID', 'name');
+        const data = await Todo.findById(id);
 
-        if (!data) {
-            return res.status(404).json({
-                message: "No todo found with this id",
-            });
-        }
-
-        res.json({
-            message: "success getting data by id",
-            data: data
-        });
+        res.json(
+            {
+                message: "success getting data by id",
+                data: data
+            }
+        );
 
     },
 
@@ -43,36 +39,17 @@ module.exports = {
         );
     },
 
-    deleteTodoById: async (req, res) => {
+    deleteTodo: async (req, res) => {
         const { id } = req.params;
-
 
         const data = await Todo.findByIdAndRemove(id);
 
         res.json(
             {
-                message: "success deleting data by id",
+                message: "success getting data by id",
                 data: data
             }
         );
-    },
-    updateTodoById: async (req, res) => {
-        const { id } = req.params.id;
-        const updateData = req.body;
-
-        const data = await Todo.findOneAndReplace(id, updateData, { new: true })
-
-
-        if (!data) {
-            return res.status(404).json({
-                message: "No todo found with this id",
-            });
-        }
-
-        res.json({
-            message: "success updating data",
-            data: data
-        });
     },
 
 }
